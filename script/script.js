@@ -25,6 +25,31 @@ window.addEventListener('DOMContentLoaded', () => {
   popupCall();
 
 
+  // popup-discount
+  function popupDiscount() {
+    const discountBtn = document.querySelectorAll('.discount-btn'),
+      popupDiscount = document.querySelector('.popup-discount');
+    discountBtn.forEach((elem) => {
+      elem.addEventListener('click', () => {
+        popupDiscount.style.display = 'block';
+      });
+      popupDiscount.addEventListener('click', (event) => {
+        let target = event.target;
+        if (target.classList.contains('popup-close')) {
+          popupDiscount.style.display = 'none';
+        } else {
+          target = target.closest('.popup-dialog');
+          if (!target) {
+            popupDiscount.style.display = 'none';
+          }
+        }
+      });
+    });
+  }
+
+  popupDiscount();
+
+
 
 
 });
