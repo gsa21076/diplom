@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   // popup-call
+
   function popupCall() {
     const callBtn = document.querySelectorAll('a[class=call-btn]'),
       popupCall = document.querySelector('.popup-call');
