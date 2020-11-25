@@ -46,7 +46,6 @@ window.addEventListener('DOMContentLoaded', () => {
           });
         } else {
           target = target.closest('.popup-content');
-          console.log(target);
           if (!target) {
             elem.style.display = 'none';
           }
@@ -91,13 +90,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     inputPhone.forEach((phone) => {
       phone.addEventListener('input', (event) => {
-        event.target.value = event.target.value.replace(/\^+7([-()]*\d){10}$/g, ''); ///\^+7([-()]*\d){10}$/g, '' /[^\8+\d(10)-]/g, ''
+        event.target.value = event.target.value.replace(/[^\+\-\d(10)-]/g, '');
       });
     });
 
     inputName.forEach((name) => {
       name.addEventListener('input', (event) => {
-        console.log(event.target);
         event.target.value = event.target.value.replace(/[^А-яЁё\ \,\.]/g, '');
       });
     });
