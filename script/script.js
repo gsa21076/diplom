@@ -75,7 +75,6 @@ window.addEventListener('DOMContentLoaded', () => {
     statusMessage.style.cssText = `font-size: 1,5rem;
     color: black;`;
 
-    console.log(inputName, inputPhone);
     const postData = (body) => {
       inputName.forEach(elem => elem.value = '');
       inputPhone.forEach(elem => elem.value = '');
