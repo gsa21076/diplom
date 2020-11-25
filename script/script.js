@@ -5,7 +5,6 @@ window.addEventListener('DOMContentLoaded', () => {
   function popupCall() {
     const callBtn = document.querySelectorAll('a[class=call-btn]'),
       popupCall = document.querySelector('.popup-call');
-
     callBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popupCall.style.display = 'block';
@@ -21,12 +20,8 @@ window.addEventListener('DOMContentLoaded', () => {
           }
         }
       });
-
     });
-
-
   }
-
   popupCall();
 
 
