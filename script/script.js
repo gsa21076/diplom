@@ -1,55 +1,67 @@
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
-  // popup-call
-  function popupCall() {
-    const callBtn = document.querySelectorAll('a[class=call-btn]'),
-      popupCall = document.querySelector('.popup-call');
-    callBtn.forEach((elem) => {
-      elem.addEventListener('click', () => {
-        popupCall.style.display = 'block';
-      });
-      popupCall.addEventListener('click', (event) => {
+  // popup-form
+  const popupForm = () => {
+    const popupCall = document.querySelector('.popup-call'),
+      popupConsultation = document.querySelector('.popup-consultation'),
+      popupCheck = document.querySelector('.popup-check'),
+      popupDiscount = document.querySelector('.popup-discount'),
+      popup = document.querySelectorAll('.popup'),
+      btn = document.querySelectorAll('.btn'),
+      popupClose = document.querySelectorAll('.popup-close');
+
+
+    btn.forEach((elem) => {
+
+      elem.addEventListener('click', (event) => {
         let target = event.target;
-        if (target.classList.contains('popup-close')) {
-          popupCall.style.display = 'none';
-        } else {
-          target = target.closest('.popup-dialog');
-          if (!target) {
-            popupCall.style.display = 'none';
-          }
+        console.log(target);
+        if (target.classList.contains('call-btn')) {
+          popupCall.style.display = 'block';
         }
-      });
-    });
-  }
-  popupCall();
-
-
-  // popup-discount
-  function popupDiscount() {
-    const discountBtn = document.querySelectorAll('.discount-btn'),
-      popupDiscount = document.querySelector('.popup-discount');
-    discountBtn.forEach((elem) => {
-      elem.addEventListener('click', () => {
-        popupDiscount.style.display = 'block';
-      });
-      popupDiscount.addEventListener('click', (event) => {
-        let target = event.target;
-        if (target.classList.contains('popup-close')) {
-          popupDiscount.style.display = 'none';
-        } else {
-          target = target.closest('.popup-dialog');
-          if (!target) {
-            popupDiscount.style.display = 'none';
-          }
+        if (target.classList.contains('discount-btn')) {
+          popupDiscount.style.display = 'block';
         }
+        if (target.classList.contains('check-btn')) {
+          popupCheck.style.display = 'block';
+        }
+        if (target.classList.contains('director-btn')) {
+          popupConsultation.style.display = 'block';
+        }
+
+
       });
+      popup.forEach((elem) => {
+        elem.addEventListener('click', (event) => {
+          let target = event.target;
+          if (target.classList.contains('popup-close')) {
+            elem.style.display = 'none';
+          } else {
+            target = target.closest('.popup-dialog');
+            if (!target) {
+              elem.style.display = 'none';
+            }
+          }
+        });
+      });
+
     });
-  }
+  };
+  popupForm();
 
-  popupDiscount();
 
 
+  // // send-ajax-form
+  // const sendForm = () => {
+  //   const errorMessage = 'Что-то пошло не так...',
+  //     loadMessage = 'Загрузка...',
+  //     successMessage = 'Спасибо! Мы скоро с Вами свяжемся.';
+
+
+
+  // };
+  // sendForm();
 
 
 });
