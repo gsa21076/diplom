@@ -110,8 +110,10 @@ window.addEventListener('DOMContentLoaded', () => {
         form.append(statusMessage);
         statusMessage.textContent = loadMessage;
         const formData1 = new FormData(form);
+        console.log(formData1);
         let body = {};
         formData1.forEach((val, key) => {
+          console.log(key, val);
           body[key] = val;
         });
 
@@ -132,5 +134,40 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   sendForm();
 
+
+
+
+  // panel-accordeon
+  const accordeon = () => {
+
+    const panel = document.getElementById('accordion-two'),
+      panelHeading = panel.querySelectorAll('.panel-heading'),
+      panelCollapse = panel.querySelectorAll('.panel-collapse');
+
+    const togglePanel = (index) => {
+      for (let i = 0; i < panelCollapse.length; i++) {
+        if (index === i) {
+          panelCollapse[i].classList.add('in');
+
+        } else {
+          panelCollapse[i].classList.remove('in');
+        }
+      }
+    };
+
+    panel.addEventListener('click', (event) => {
+      event.preventDefault();
+      let target = event.target;
+      target = target.closest('.panel-heading');
+      if (target.classList.contains('panel-heading')) {
+        panelHeading.forEach((item, i) => {
+          if (item === target) {
+            togglePanel(i);
+          }
+        });
+      }
+    });
+  };
+  accordeon();
 
 });
