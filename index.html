@@ -171,44 +171,52 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
                              aria-labelledby="headingTwo">
                             <div class="panel-body">
-
+                                
+                            <div class="box-one">
                                 <div class="title-text">первый колодец (приемный)</div>
                                 <div class="select-box">
                                     <p><strong>Диаметр</strong></p>
-                                    <select class="form-control expand">
-                                        <option>1.4 метра</option>
-                                        <option>2 метра</option>
+                                    <select class="form-control expand first-diam">
+                                        <option >1.4 метра</option>
+                                        <option >2 метра</option>
                                     </select>
                                 </div>
+                                                        
                                 <div class="select-box">
                                     <p><strong>Количество колец</strong></p>
-                                    <select class="form-control expand">
+                                    <select class="form-control expand first-number">
                                         <option>1 штука</option>
                                         <option>2 штуки</option>
                                         <option>3 штуки</option>
                                     </select>
                                 </div>
+                            </div>
 
+                            <div class="box-two">
                                 <div class="title-text">второй колодец (дренажный)</div>
                                 <div class="select-box">
                                     <p><strong>Диаметр</strong></p>
-                                    <select class="form-control expand">
+                                    <select class="form-control expand second-diam">
                                         <option>1.4 метра</option>
                                         <option>2 метра</option>
                                     </select>
                                 </div>
                                 <div class="select-box">
                                     <p><strong>Количество колец</strong></p>
-                                    <select class="form-control expand">
+                                    <select class="form-control expand second-number">
                                         <option>1 штука</option>
                                         <option>2 штуки</option>
                                         <option>3 штуки</option>
                                     </select>
                                 </div>
+                             </div>
+                                <div>
                                 <a class="button construct-btn" data-toggle="collapse" data-parent="#accordion"
                                    href="#collapseThree"><span>Следующий шаг</span></a>
-                            </div>
+                                 </div>
+                            
                         </div>
+                    </div> 
                     </div>
 
                     <div class="panel panel-default panel-three wow fadeInLeft" data-wow-delay="0.2s">
@@ -225,9 +233,9 @@
                             <div class="panel-body">
                                 </p>
 
-                                <div class="onoffswitch">
+                                <div class="onoffswitch onoffswitch-two">
                                     <input type="checkbox" name="onoffswitch-two" class="onoffswitch-checkbox"
-                                           id="myonoffswitch-two" checked>
+                                           id="myonoffswitch-two" >
                                     <label class="onoffswitch-label" for="myonoffswitch-two">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -253,7 +261,7 @@
                              aria-labelledby="headingFour">
                             <div class="panel-body">
                                 <p>Введите расстояние до дома</p>
-                                <input type="text">
+                                <input class="distanse" type="text">
                                 <button class="button construct-btn call-btn">Получить расчет и скидку</button>
                             </div>
                         </div>
@@ -263,7 +271,7 @@
 
             <div class="col-lg-6 col-md-6 col-sm-6 wow fadeInRight">
                 <img class="tank-img" src="img/constructor/septic-tank.png" alt="tank">
-                <input id="calc-result" type="text" placeholder="примерная стоимость" disabled>
+                <p id="calc-result" type="text" placeholder="примерная стоимость" disabled style = "font-size: 2rem; margin: auto; text-align: center;">10000</p>
             </div>
 
         </div>
