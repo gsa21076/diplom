@@ -290,11 +290,9 @@ window.addEventListener('DOMContentLoaded', () => {
       if (customOrder.numberBox === 1) {
         sum = oneCamera + oneCamera * k1 + oneCamera * k2;
       }
-
       if (customOrder.numberBox === 2) {
         sum = oneCamera + oneCamera * k1 + oneCamera * k2 + twoCamera + twoCamera * k3 + twoCamera * k4;
       }
-
       if (customOrder.bottom) {
         if (customOrder.numberBox === 1) {
           sum = sum + sum * 0.1;
@@ -304,12 +302,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
       }
       calcResult.textContent = sum;
-
     };
 
     const togglePanel = (index) => {
       for (let i = 0; i < panelCollapse.length; i++) {
-        console.log(index, i);
         if (index === i) {
           panelCollapse[i].classList.add('in');
 
@@ -322,7 +318,6 @@ window.addEventListener('DOMContentLoaded', () => {
     accordion.addEventListener('click', (event) => {
       event.preventDefault();
       let target = event.target;
-      console.log(target);
       if (target.closest('.panel-one')) {
         if (target.closest('.onoffswitch')) {
           boxChange();
@@ -370,6 +365,29 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   calc();
 
+
+
+
+
+  // addSentenc
+  const addSentenc = () => {
+    const addSentenceBtn = document.querySelector('.add-sentence-btn'),
+      sentence = document.querySelector('.sentence'),
+      shadowBlock = sentence.querySelectorAll('.shadow-block'),
+      hidden = sentence.querySelectorAll('.hidden'),
+      visibleBlock = sentence.querySelector('.visible-sm-block');
+
+
+    addSentenceBtn.addEventListener('click', () => {
+      hidden.forEach((elem) => {
+        visibleBlock.classList.remove('visible-sm-block');
+        elem.classList.remove('hidden');
+        addSentenceBtn.style.display = 'none';
+      });
+    });
+
+  };
+  addSentenc();
 
 });
 
