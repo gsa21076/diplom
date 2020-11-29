@@ -1,6 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
+  let customOrder = {
+    numberBox: 0,
+    diam1: 0,
+    number1: 0,
+    diam2: 0,
+    number2: 0,
+    bottom: false,
+    distanse: 0,
+    sum: 10000
+  };
+
   // popup-form
   const popupForm = () => {
     const popupCall = document.querySelector('.popup-call'),
@@ -11,12 +22,14 @@ window.addEventListener('DOMContentLoaded', () => {
       popupBtn = document.querySelectorAll('.btn'),
       popupClose = document.querySelectorAll('.popup-close'),
       inputName = document.querySelectorAll('input[name=user_name]'),
+      userQuest = document.querySelector('input[name=user_quest]'),
       inputPhone = document.querySelectorAll('.phone-user');
 
 
     popupBtn.forEach((elem) => {
 
       elem.addEventListener('click', (event) => {
+        event.preventDefault();
         let target = event.target;
         if (target.classList.contains('call-btn')) {
           popupCall.style.display = 'block';
@@ -38,12 +51,6 @@ window.addEventListener('DOMContentLoaded', () => {
         let target = event.target;
         if (target.classList.contains('popup-close')) {
           elem.style.display = 'none';
-          inputName.forEach((elem) => {
-            elem.required = false;
-          });
-          inputPhone.forEach((elem) => {
-            elem.required = false;
-          });
         } else {
           target = target.closest('.popup-content');
           if (!target) {
@@ -51,8 +58,6 @@ window.addEventListener('DOMContentLoaded', () => {
           }
         }
       });
-
-
     });
   };
   popupForm();
@@ -66,58 +71,61 @@ window.addEventListener('DOMContentLoaded', () => {
       successMessage = 'Спасибо! Мы скоро с Вами свяжемся.';
 
     const form = document.querySelectorAll('form'),
-      inputName = document.querySelectorAll('input[name=user_name]'),
-      inputPhone = document.querySelectorAll('.phone-user'),
-      inputQuest = document.querySelector('input[name=user_quest]');
+      userName = document.querySelectorAll('input[name=user_name]'),
+      userPhone = document.querySelectorAll('.phone-user'),
+      userQuest = document.querySelector('input[name=user_quest]');
 
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = `font-size: 1,5rem;
     color: black;`;
 
-    const postData = (body) => {
-      inputName.forEach(elem => elem.value = '');
-      inputPhone.forEach(elem => elem.value = '');
-      inputQuest.value = '';
-
+    const postData = (user) => {
+      userName.forEach(elem => elem.value = '');
+      userPhone.forEach(elem => elem.value = '');
+      // userQuest.value = '';
       return fetch('./server.php', {
-        metod: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user),
       });
+
     };
 
-    inputPhone.forEach((phone) => {
+    userPhone.forEach((phone) => {
       phone.addEventListener('input', (event) => {
         event.target.value = event.target.value.replace(/[^\+\-\d(10)-]/g, '');
       });
     });
 
-    inputName.forEach((name) => {
+    userName.forEach((name) => {
       name.addEventListener('input', (event) => {
         event.target.value = event.target.value.replace(/[^А-яЁё\ \,\.]/g, '');
       });
     });
 
-    inputQuest.addEventListener('input', (event) => {
+    userQuest.addEventListener('input', (event) => {
       event.target.value = event.target.value.replace(/[^А-яЁё\ \, \.]*$/gi, '');
     });
+
 
     form.forEach((form) => {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         form.append(statusMessage);
-        statusMessage.textContent = loadMessage;
-        const formData1 = new FormData(form);
-        console.log(formData1);
-        let body = {};
-        formData1.forEach((val, key) => {
-          console.log(key, val);
-          body[key] = val;
-        });
+        userQuest.style.cssText = 'display: none';
+        form.append(userQuest);
 
-        postData(body)
+        statusMessage.textContent = loadMessage;
+        const formData = new FormData(form);
+        let body = {};
+
+        formData.forEach((val, key) => {
+          body[key] = val;
+
+        });
+        let user = Object.assign(body, customOrder);
+
+        postData(user)
           .then((response) => {
             if (response.status !== 200) {
               throw new Error('status network not 200');
@@ -128,12 +136,23 @@ window.addEventListener('DOMContentLoaded', () => {
             statusMessage.textContent = errorMessage;
             console.error(error);
           });
+        userName.forEach((elem) => {
+          elem.required = false;
+        });
+        userPhone.forEach((elem) => {
+          elem.required = false;
+        });
+        userQuest.required = false;
+
+
+
 
       });
+
     });
+
   };
   sendForm();
-
 
 
 
@@ -174,6 +193,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // calc
   const calc = () => {
 
+
     const accordion = document.getElementById('accordion'),
       panelDefault = accordion.querySelectorAll('.panel-default'),
       panelCollapse = accordion.querySelectorAll('.panel-collapse'),
@@ -185,18 +205,10 @@ window.addEventListener('DOMContentLoaded', () => {
       firstDiam = accordion.querySelector('.first-diam'),
       firstNumber = accordion.querySelector('.first-number'),
       secondDiam = accordion.querySelector('.second-diam'),
-      secondNumber = accordion.querySelector('.second-number');
+      secondNumber = accordion.querySelector('.second-number'),
+      popupDiscount = document.querySelector('.popup-discount');
 
-    let customOrder = {
-      numberBox: 1,
-      diam1: 1.4,
-      number1: 1,
-      diam2: 1.4,
-      number2: 1,
-      bottom: false,
-      distanse: 1
-    },
-      sum = 0,
+    let
       k1 = 0,
       k2 = 0,
       k3 = 0,
@@ -267,7 +279,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     const bottomControlChange = () => {
-      console.log(haveButtom.checked);
       if (!haveButtom.checked) {
         haveButtom.checked = true;
         customOrder.bottom = true;
@@ -286,7 +297,7 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     const countSum = () => {
-      let sum = 0;
+      let sum = 10000;
       if (customOrder.numberBox === 1) {
         sum = oneCamera + oneCamera * k1 + oneCamera * k2;
       }
@@ -296,12 +307,38 @@ window.addEventListener('DOMContentLoaded', () => {
       if (customOrder.bottom) {
         if (customOrder.numberBox === 1) {
           sum = sum + sum * 0.1;
+          customOrder.bottom = true;
         } else {
           sum = sum + sum * 0.2;
+          customOrder.bottom = true;
+
         }
 
+        customOrder.sum = sum;
       }
-      calcResult.textContent = sum;
+      let sumBack = +calcResult.textContent;
+
+      let totalSum = setInterval(updateSum, 1);
+
+      function updateSum() {
+        if (sumBack < sum) {
+          sumBack += 50;
+          calcResult.textContent = sumBack;
+          if (sumBack >= sum) {
+            calcResult.textContent = sum;
+            clearInterval(totalSum);
+          }
+        }
+        if (sumBack > sum) {
+          sumBack -= 50;
+          calcResult.textContent = sumBack;
+          if (sumBack <= sum) {
+            calcResult.textContent = sum;
+            clearInterval(totalSum);
+
+          }
+        }
+      }
     };
 
     const togglePanel = (index) => {
@@ -341,7 +378,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (target.closest('.construct-btn')) {
         if (target.closest('.call-btn')) {
-          console.log(customOrder);
+          popupDiscount.style.display = 'block';
+
         }
         panelDefault.forEach((item, i) => {
           if (item === target.closest('.panel-default')) {
@@ -365,10 +403,6 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   calc();
 
-
-
-
-
   // addSentenc
   const addSentenc = () => {
     const addSentenceBtn = document.querySelector('.add-sentence-btn'),
@@ -388,6 +422,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
   };
   addSentenc();
-
 });
-
